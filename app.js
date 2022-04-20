@@ -1,4 +1,5 @@
-const express = require("express")
+const express = require("express");
+const { readFile } = require("fs");
 const path = require("path")
 const api = require('./routes/index.js');
 
@@ -10,6 +11,10 @@ app.use("/api",api)
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
+
+app.get("/*",(req,res)=>{
+    res.sendFile(path.join(__dirname,"public/index.html"))
+})
 
 app.listen(PORT,()=>{
     console.log(`App is listening at: http://localhost:${PORT}`)

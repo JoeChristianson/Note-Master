@@ -31,4 +31,16 @@ const readAndAppend = (content, file) => {
   });
 };
 
-module.exports = { readFromFile, writeToFile, readAndAppend };
+const readAndDelete = async (id,file)=>{
+  const data = await readFromFile(file);
+  const parsedData = await JSON.parse(data);
+  console.log(parsedData)
+  const filteredData = parsedData.filter(note=>{
+    return note.id != id;
+  });
+  writeToFile("./db/db.json",filteredData)
+  console.log(filteredData);
+  return filteredData
+}
+
+module.exports = { readFromFile, writeToFile, readAndAppend,readAndDelete };
